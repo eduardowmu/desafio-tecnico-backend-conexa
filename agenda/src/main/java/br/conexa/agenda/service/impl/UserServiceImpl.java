@@ -24,13 +24,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
     @Override
-    public User create(User user) {
+    public void create(User user) {
         Optional<User> existUser = this.userRepository.findByUserName(user.getUsername());
         if(existUser.isPresent()) {
             throw new EntityExistsException("Usuário já existe");
         }
         //faz o encrypt da senha
         user.setPassword(passwordEncoder().encode(user.getUsername()));
-        return this.userRepository.save(user);
+        this.userRepository.save(user);
     }
 }

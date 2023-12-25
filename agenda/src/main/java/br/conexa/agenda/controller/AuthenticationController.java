@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1")
 public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -36,7 +36,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data){
         if(this.repository.findByUserName(data.userName()).isPresent()) return ResponseEntity.badRequest().build();
 
