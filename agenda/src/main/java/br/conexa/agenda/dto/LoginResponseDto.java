@@ -1,4 +1,6 @@
 package br.conexa.agenda.dto;
 
-public record LoginResponseDto(String token) {
+import br.conexa.agenda.model.EntityModel;
+
+public record LoginResponseDto(String token)  implements EntityModel {
 }

@@ -2,6 +2,7 @@ package br.conexa.agenda.controller;
 import br.conexa.agenda.dto.LoginResponseDto;
 import br.conexa.agenda.dto.AuthenticationDto;
 import br.conexa.agenda.dto.RegisterDto;
+import br.conexa.agenda.enumeration.UserRole;
 import br.conexa.agenda.model.User;
 import br.conexa.agenda.repository.UserRepository;
 import br.conexa.agenda.security.TokenService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1")
 public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -36,12 +37,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data){
-        if(this.repository.findByUserName(data.userName()).isPresent()) return ResponseEntity.badRequest().build();
+        if(this.repository.findByUserName(data.email()).isPresent()) return ResponseEntity.badRequest().build();
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(null, data.userName(), encryptedPassword, data.role());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+        User newUser = new User(null, data.email(), encryptedPassword, data.especialidade().equals("") ?
+                UserRole.ADMIN : UserRole.USER);
 
         this.repository.save(newUser);
 
