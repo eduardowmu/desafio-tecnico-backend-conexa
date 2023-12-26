@@ -1,5 +1,6 @@
 package br.conexa.agenda.service.impl;
 
+import br.conexa.agenda.enumeration.Event;
 import br.conexa.agenda.model.EntityModel;
 import br.conexa.agenda.process.ValidationProcess;
 
@@ -7,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Facade {
-    protected Map<String, Map<String, List<ValidationProcess>>> rules;
+    protected Map<String, Map<Event, List<ValidationProcess>>> roles;
 
-    protected void execute(EntityModel em, String event) {
-        Map<String, List<ValidationProcess>> operationRoles = this.rules.get(em.getClass().getSimpleName());
+    protected void execute(EntityModel em, Event event) {
+        Map<Event, List<ValidationProcess>> operationRoles = this.roles.get(em.getClass().getSimpleName());
         if(operationRoles != null) {
             List<ValidationProcess> rolesList = operationRoles.get(event);
             if(rolesList != null) {

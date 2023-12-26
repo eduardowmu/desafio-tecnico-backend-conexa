@@ -6,7 +6,7 @@ import br.conexa.agenda.repository.SpecialtyRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CheckRole implements ValidationProcess {
+public class ValidSpecialty implements ValidationProcess {
     private final SpecialtyRepository specialtyRepository;
     @Override
     public void process(EntityModel entityModel) {
@@ -14,7 +14,5 @@ public class CheckRole implements ValidationProcess {
         if(!this.specialtyRepository.findByName(doctor.getSpecialty()).isPresent()) {
             throw new IllegalArgumentException("Não existe esta especialidade em nossa lista " + doctor.getSpecialty());
         }
-
-
     }
 }

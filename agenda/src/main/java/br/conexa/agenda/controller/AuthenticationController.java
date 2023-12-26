@@ -7,6 +7,7 @@ import br.conexa.agenda.model.User;
 import br.conexa.agenda.repository.UserRepository;
 import br.conexa.agenda.security.TokenService;
 import br.conexa.agenda.service.UserService;
+import br.conexa.agenda.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final TokenService tokenService;
+
+    @Autowired
+    public AuthenticationController(AuthenticationManager authenticationManager, UserServiceImpl userService,
+                                    TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data){
