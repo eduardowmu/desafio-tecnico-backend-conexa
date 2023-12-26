@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class Facade {
     protected Map<String, Map<Event, List<ValidationProcess>>> roles;
-
+    //recuperando branch
     protected void execute(EntityModel em, Event event) {
         Map<Event, List<ValidationProcess>> operationRoles = this.roles.get(em.getClass().getSimpleName());
         if(operationRoles != null) {
