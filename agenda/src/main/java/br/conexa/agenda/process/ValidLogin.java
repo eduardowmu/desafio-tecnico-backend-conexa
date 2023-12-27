@@ -16,7 +16,7 @@ public class ValidLogin implements ValidationProcess {
     @Override
     public void process(EntityModel entityModel) {
         AuthenticationDto data = (AuthenticationDto)entityModel;
-        User login = this.userRepository.findByUserName(data.email())
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não existe " + data.email()));
+        User login = this.userRepository.findByUserName(data.userName())
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não existe " + data.userName()));
     }
 }

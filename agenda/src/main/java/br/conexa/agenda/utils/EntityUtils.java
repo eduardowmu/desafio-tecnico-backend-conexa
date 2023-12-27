@@ -17,8 +17,8 @@ public class EntityUtils {
 
     public static User toUserFromAuth(AuthenticationDto authenticationDto) {
         User user = new User();
-        user.setUserName(authenticationDto.email());
-        user.setPassword(authenticationDto.senha());
+        user.setUserName(authenticationDto.userName());
+        user.setPassword(authenticationDto.password());
         return user;
     }
 }
