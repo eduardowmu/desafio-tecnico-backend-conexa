@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-public class User implements UserDetails {
+public class User implements UserDetails, EntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
