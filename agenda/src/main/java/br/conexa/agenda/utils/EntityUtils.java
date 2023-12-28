@@ -1,8 +1,12 @@
 package br.conexa.agenda.utils;
 
+import br.conexa.agenda.dto.AttendanceDto;
 import br.conexa.agenda.dto.AuthenticationDto;
+import br.conexa.agenda.dto.PacienteDto;
 import br.conexa.agenda.dto.RegisterDto;
+import br.conexa.agenda.model.Attendance;
 import br.conexa.agenda.model.Doctor;
+import br.conexa.agenda.model.Patient;
 import br.conexa.agenda.model.User;
 
 public class EntityUtils {
@@ -20,5 +24,21 @@ public class EntityUtils {
         user.setUserName(authenticationDto.userName());
         user.setPassword(authenticationDto.password());
         return user;
+    }
+
+    public static Attendance toAttendanceFromDto(AttendanceDto data) {
+        Attendance attendance = new Attendance();
+        attendance.setDateTime(data.dataHora());
+        Patient patient = new Patient();
+        patient.setName(data.paciente().nome());
+        patient.setCpf(data.paciente().cpf());
+        attendance.setPatient(patient);
+        return attendance;
+    }
+
+    public static AttendanceDto toAttendanceDto(Attendance attendance) {
+        AttendanceDto attendanceDto = new AttendanceDto(attendance.getDateTime(),
+                new PacienteDto(attendance.getPatient().getName(), attendance.getPatient().getCpf()));
+        return attendanceDto;
     }
 }
