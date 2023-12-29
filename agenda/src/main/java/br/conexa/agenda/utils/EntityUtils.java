@@ -28,16 +28,16 @@ public class EntityUtils {
 
     public static Attendance toAttendanceFromDto(AttendanceDto data) {
         Attendance attendance = new Attendance();
-        attendance.setDateTime(data.dataHora());
+        attendance.setDateTime(FormatUtils.toDateTime(data.dataHora()));
         Patient patient = new Patient();
         patient.setName(data.paciente().nome());
-        patient.setCpf(data.paciente().cpf());
+        patient.setCpf(FormatUtils.toWithoutFormat(data.paciente().cpf()));
         attendance.setPatient(patient);
         return attendance;
     }
 
     public static AttendanceDto toAttendanceDto(Attendance attendance) {
-        AttendanceDto attendanceDto = new AttendanceDto(attendance.getDateTime(),
+        AttendanceDto attendanceDto = new AttendanceDto(FormatUtils.dateToText(attendance.getDateTime()),
                 new PacienteDto(attendance.getPatient().getName(), attendance.getPatient().getCpf()));
         return attendanceDto;
     }

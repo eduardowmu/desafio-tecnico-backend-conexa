@@ -6,6 +6,5 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-public record AttendanceDto(@NotNull @DateTimeFormat(style = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataHora,
-                            @NotNull PacienteDto paciente) implements EntityModel {
+public record AttendanceDto(@NotNull String dataHora, @NotNull PacienteDto paciente) implements EntityModel {
 }
