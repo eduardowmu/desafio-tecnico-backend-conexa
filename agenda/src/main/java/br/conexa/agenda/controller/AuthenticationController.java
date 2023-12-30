@@ -45,7 +45,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/attendance")
-    public ResponseEntity<AttendanceDto> create(@RequestBody AttendanceDto data) {
+    public ResponseEntity<AttendanceDto> create(@RequestBody AttendanceDto data,
+                                                @RequestHeader("Authorization") String token) {
+        this.tokenService.findByToken(token.replaceAll("Bearer ", ""));
         return ResponseEntity.ok().body(EntityUtils.toAttendanceDto(this.attendanceService.create(data)));
+    }
+
+    @DeleteMapping("/logoff")
+    public void logoff(@RequestHeader("Authorization") String token) {
+        this.tokenService.deleteToken(token.replaceAll("Bearer ", ""));
     }
 }

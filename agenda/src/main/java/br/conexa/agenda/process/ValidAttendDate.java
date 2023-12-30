@@ -17,7 +17,7 @@ public class ValidAttendDate implements ValidationProcess {
     public void process(EntityModel entityModel) {
         AttendanceDto data = (AttendanceDto) entityModel;
         if(FormatUtils.toDateTime(data.dataHora()).isBefore(LocalDateTime.now()) || data.dataHora().equals(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Não é possível agendar nesta data passada" + data.dataHora());
+            throw new IllegalArgumentException("Não é possível agendar nesta data passada " + data.dataHora());
         } else if(this.attendanceRepository.findByDateTime(FormatUtils.toDateTime(data.dataHora())).isPresent()) {
             throw new IllegalArgumentException("Já existe agenda nesta data " + data.dataHora());
         }
