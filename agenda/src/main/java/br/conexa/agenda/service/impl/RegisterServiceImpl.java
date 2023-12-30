@@ -3,6 +3,7 @@ package br.conexa.agenda.service.impl;
 import br.conexa.agenda.dto.RegisterDto;
 import br.conexa.agenda.enumeration.Event;
 import br.conexa.agenda.enumeration.UserRole;
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.Doctor;
 import br.conexa.agenda.model.EntityModel;
 import br.conexa.agenda.model.User;
@@ -75,7 +76,7 @@ public class RegisterServiceImpl extends Facade implements RegisterService {
 
             this.doctorRepository.save(doctor);
         } catch (RuntimeException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 }

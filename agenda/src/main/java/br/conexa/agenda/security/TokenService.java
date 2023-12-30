@@ -1,5 +1,6 @@
 package br.conexa.agenda.security;
 
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.TokenLogin;
 import br.conexa.agenda.repository.TokenRepository;
 import br.conexa.agenda.repository.UserRepository;

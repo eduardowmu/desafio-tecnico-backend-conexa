@@ -3,6 +3,7 @@ import br.conexa.agenda.dto.AttendanceDto;
 import br.conexa.agenda.dto.LoginResponseDto;
 import br.conexa.agenda.dto.AuthenticationDto;
 import br.conexa.agenda.dto.RegisterDto;
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.User;
 import br.conexa.agenda.security.TokenService;
 import br.conexa.agenda.service.AttendanceService;
@@ -29,12 +30,16 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.userName(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+        try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.userName(), data.password());
+            var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+            var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDto(token));
+            return ResponseEntity.ok(new LoginResponseDto(token));
+        }catch (RuntimeException e) {
+            throw new IllegalArgumentException("Usuário ou senha inválida");
+        }
     }
 
     @PostMapping("/signup")

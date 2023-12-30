@@ -2,6 +2,7 @@ package br.conexa.agenda.service.impl;
 
 import br.conexa.agenda.dto.AttendanceDto;
 import br.conexa.agenda.enumeration.Event;
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.Attendance;
 import br.conexa.agenda.model.Patient;
 import br.conexa.agenda.process.ValidAttendDate;
@@ -45,10 +46,14 @@ public class AttendanceServiceImpl extends Facade implements AttendanceService {
     }
     @Override
     public Attendance create(AttendanceDto data) {
-        this.execute(data, Event.SAVE);
-        Attendance attendance = EntityUtils.toAttendanceFromDto(data);
-        Patient createdPatient = this.patientRepository.save(attendance.getPatient());
-        attendance.setPatient(createdPatient);
-        return this.attendanceRepository.save(attendance);
+        try {
+            this.execute(data, Event.SAVE);
+            Attendance attendance = EntityUtils.toAttendanceFromDto(data);
+            Patient createdPatient = this.patientRepository.save(attendance.getPatient());
+            attendance.setPatient(createdPatient);
+            return this.attendanceRepository.save(attendance);
+        } catch(RuntimeException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 }

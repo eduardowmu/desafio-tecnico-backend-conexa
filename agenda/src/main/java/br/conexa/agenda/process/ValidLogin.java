@@ -1,6 +1,7 @@
 package br.conexa.agenda.process;
 
 import br.conexa.agenda.dto.AuthenticationDto;
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.EntityModel;
 import br.conexa.agenda.model.User;
 import br.conexa.agenda.repository.UserRepository;

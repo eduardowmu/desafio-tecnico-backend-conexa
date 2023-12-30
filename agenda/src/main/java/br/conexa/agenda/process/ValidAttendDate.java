@@ -1,6 +1,7 @@
 package br.conexa.agenda.process;
 
 import br.conexa.agenda.dto.AttendanceDto;
+import br.conexa.agenda.exception.IllegalArgumentException;
 import br.conexa.agenda.model.EntityModel;
 import br.conexa.agenda.repository.AttendanceRepository;
 import br.conexa.agenda.utils.FormatUtils;
