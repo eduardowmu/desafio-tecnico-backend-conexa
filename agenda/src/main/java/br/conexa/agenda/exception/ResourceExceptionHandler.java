@@ -11,7 +11,7 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<IllegalArgumentException> throwException(IllegalArgumentException exception,
                                                                    ServletRequest request) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new IllegalArgumentException(
+        return ResponseEntity.ok().body(new IllegalArgumentException(
                 System.currentTimeMillis(), HttpStatus.UNAUTHORIZED.value(), exception.getLocalizedMessage()));
     }
 }

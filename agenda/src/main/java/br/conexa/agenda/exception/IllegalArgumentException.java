@@ -7,8 +7,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class IllegalArgumentException extends RuntimeException implements Serializable {
@@ -18,6 +16,12 @@ public class IllegalArgumentException extends RuntimeException implements Serial
     private String message;
 
     public IllegalArgumentException(String message) {
+        this.message = message;
+    }
+
+    public IllegalArgumentException(Long timeStamp, Integer status, String message) {
+        this.timeStamp = timeStamp;
+        this.status = status;
         this.message = message;
     }
 }

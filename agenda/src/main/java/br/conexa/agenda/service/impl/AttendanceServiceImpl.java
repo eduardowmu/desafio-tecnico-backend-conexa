@@ -56,4 +56,9 @@ public class AttendanceServiceImpl extends Facade implements AttendanceService {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Attendance> listAll() {
+        return this.attendanceRepository.findAll();
+    }
 }

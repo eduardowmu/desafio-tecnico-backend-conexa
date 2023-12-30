@@ -66,7 +66,7 @@ public class TokenService {
     }
 
     public TokenLogin findByToken(String token) {
-        return this.tokenRepository.findByToken(token).orElseThrow(() -> new IllegalArgumentException("Token inválido"));
+        return this.tokenRepository.findByToken(token).orElseThrow(() -> new IllegalArgumentException("Não Autenticado"));
     }
 
     public void deleteToken(String token) {

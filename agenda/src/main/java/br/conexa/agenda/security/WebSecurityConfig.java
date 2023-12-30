@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/signup").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/logoff").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/attendance").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/attendances").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

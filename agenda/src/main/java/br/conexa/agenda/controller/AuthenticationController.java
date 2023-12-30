@@ -16,6 +16,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class AuthenticationController {
@@ -54,6 +57,14 @@ public class AuthenticationController {
                                                 @RequestHeader("Authorization") String token) {
         this.tokenService.findByToken(token.replaceAll("Bearer ", ""));
         return ResponseEntity.ok().body(EntityUtils.toAttendanceDto(this.attendanceService.create(data)));
+    }
+
+    @GetMapping("attendances")
+    public ResponseEntity<List<AttendanceDto>> listAll(@RequestHeader("Authorization") String token) {
+        this.tokenService.findByToken(token.replaceAll("Bearer ", ""));
+        List<AttendanceDto> attendanceDtos = new ArrayList<>();
+        this.attendanceService.listAll().forEach(a -> attendanceDtos.add(EntityUtils.toAttendanceDto(a)));
+        return ResponseEntity.ok().body(attendanceDtos);
     }
 
     @DeleteMapping("/logoff")
